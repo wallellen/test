@@ -65,7 +65,7 @@ public class IDCardTest {
             connection.setRequestProperty("Content-Type",
                     "application/x-www-form-urlencoded");
             // 填入apikey到HTTP header
-            connection.setRequestProperty("apikey", "ea5d3d9331acf235de5c47f8d6b6f888");
+            connection.setRequestProperty("apikey", "key-------");
             connection.setDoOutput(true);
             connection.getOutputStream().write(httpArg.getBytes("UTF-8"));
             connection.connect();
