@@ -1,5 +1,4 @@
-
-package com.wallellen.test.idcard;
+package com.wallellen.test.character;
 
 import com.google.common.io.ByteSource;
 import com.google.common.io.Resources;
@@ -15,17 +14,18 @@ import java.net.URLEncoder;
 import java.util.Base64;
 
 /**
- * Created by walle on 3/1/16.
+ * Created by walle on 3/2/16.
  */
-public class IDCardTest {
-
-    private static final String httpUrl =
-            "http://apis.baidu.com/idl_baidu/ocridcard/ocridcard";
-    private static final String httpArg =
-            "fromdevice=pc&clientip=10.10.10.0&languagetype=CHN_ENG&image=%s";
+public class CharacterTest {
+    private static final String httpUrl = "http://apis.baidu.com/idl_baidu/baiduocrpay/idlocrpaid";
+    private static final String httpArg = "fromdevice=pc&clientip=10.10.10.0&" +
+            "detecttype=LocateRecognize&languagetype=CHN_ENG&imagetype=1&image=%s";
+    String jsonResult = request(httpUrl, httpArg);
+//    System.out.println(jsonResult);
+//图片转码的部分请参考 http://bbs.apistore.baidu.com/forum.php?mod=viewthread&tid=753&extra=
 
     public static void main(String[] args) throws Throwable {
-        String img = getImage("./src/main/resources/1.jpg");
+        String img = getImage("./src/main/resources/2.jpg");
         String query = String.format(httpArg, img);
         String jsonResult = request(httpUrl, query);
         System.out.println(jsonResult);
@@ -47,8 +47,6 @@ public class IDCardTest {
      * @return 返回结果
      */
     public static String request(String httpUrl, String httpArg) {
-        System.err.println(httpUrl);
-        System.err.println(httpArg);
         BufferedReader reader = null;
         String result = null;
         StringBuffer sbf = new StringBuffer();
@@ -61,7 +59,7 @@ public class IDCardTest {
             connection.setRequestProperty("Content-Type",
                     "application/x-www-form-urlencoded");
             // 填入apikey到HTTP header
-            connection.setRequestProperty("apikey", "ea5d3d9331acf235de5c47f8d6b6f888");
+            connection.setRequestProperty("apikey", "您自己的apikey");
             connection.setDoOutput(true);
             connection.getOutputStream().write(httpArg.getBytes("UTF-8"));
             connection.connect();
@@ -79,5 +77,4 @@ public class IDCardTest {
         }
         return result;
     }
-
 }

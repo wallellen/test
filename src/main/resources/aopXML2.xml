@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+    <bean id="dao" class="com.wallellen.test.spring.aop.dao.AccountDaoImpl"/>
+    <bean class="com.wallellen.test.spring.aop.service.AccountServiceImpl">
+        <property name="accountDao" ref="dao"/>
+    </bean>
+    <bean id="log" class="com.wallellen.test.spring.aop.aspect.LogBean2"/>
+
+    <aop:config>
+        <aop:aspect ref="log">
+            <aop:pointcut id="log_cut" expression="execution (* com.wallellen.test.spring.aop.service.*.*(..))"/>
+            <aop:around method="process" pointcut-ref="log_cut"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
